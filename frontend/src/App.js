@@ -22,6 +22,7 @@ import { AuthProvider } from './Context/AuthContext';
 import ProfilePage from './Pages/ProfilePage';
 import ServiceDetails from './Components/ServicesCompo/ServiceDetails/ServiceDetails';
 import ChatDisplay from './Components/ChatAppCompo/Chat Display/ChatDisplay';
+import OthersProfilePage from './Pages/OthersProfilePage';
 
 const AppContent = () => {
   // Custom hook to get the current path
@@ -50,7 +51,7 @@ const AppContent = () => {
           <Route path="/places" element={<AttractivePlacesPage />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/profile/:userId" element={<ProfilePage />} />
+          <Route path="/profile/:userId" element={<OthersProfilePage />} />
           <Route path="/details/:id" element={<ServiceDetails />} />
           <Route element={<ProtectedRoute />}>
             <Route path="/chat/:userId" element={<ChatPage />} />

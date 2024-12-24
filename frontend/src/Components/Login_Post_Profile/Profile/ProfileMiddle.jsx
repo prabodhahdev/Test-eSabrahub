@@ -213,7 +213,7 @@ const ProfileMiddle = () => {
           alt="Profile"
           className="user-profile"
         /> 
-          <div className="user-info">
+                  <div className="user-info">
             <span className="user-name">{userName}</span>
           </div>
           {location && (

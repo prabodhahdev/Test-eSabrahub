@@ -136,6 +136,10 @@ const Posts = () => {
     }
   };
 
+  const handleProfileClick = (userId) => {
+    navigate(`/profile/${userId}`); // Navigate to the user profile page
+  };
+
   const Post = ({ _id, postType, user, text, photos, videos, location, backgroundColor, likes, caption }) => {
     const userName = user?.username || 'Unknown User';
     const userProfile = user?.profileImage || 'https://via.placeholder.com/50';
@@ -144,7 +148,7 @@ const Posts = () => {
     const isLiked = likedPosts[_id] || false;
 
     const renderMedia = () => (
-      <>
+      <div>
         {photos.length === 1 ? (
           <img src={`http://localhost:5000/${photos[0]}`} alt="Post Media" className="media-image" />
         ) : (
@@ -160,27 +164,35 @@ const Posts = () => {
             Your browser does not support the video tag.
           </video>
         ))}
-      </>
+      </div>
     );
 
     return (
       <div className="post">
         <div className="post-header">
-        <img
-          src={`http://localhost:5000${userProfile}`} 
-          alt="Profile"
-          className="user-profile"
-        />          
-        <div className="user-info">
+          <img
+            src={`http://localhost:5000${userProfile}`} 
+            alt="Profile"
+            className="user-profile"
+            onClick={() => handleProfileClick(user._id)} // Add onClick handler
+          />
+          <div className="user-info">
             <span className="user-name">{userName}</span>
           </div>
           {location && (
-            <div className="post-location">
-              <FontAwesomeIcon icon={faMapMarkerAlt} className="location-icon" />
-              <span className="location-name">{location}</span>
-              <FontAwesomeIcon icon={faUserPlus} className="follow-icon" />
-            </div>
-          )}
+  <div className="post-location">
+    <FontAwesomeIcon icon={faMapMarkerAlt} className="location-icon" />
+    <span 
+      className="location-name" 
+      onClick={() => window.open(`https://www.google.com/maps?q=${encodeURIComponent(location)}`, '_blank')}
+      style={{ cursor: 'pointer', color: 'green' }}
+    >
+      {location}
+    </span>
+    <FontAwesomeIcon icon={faUserPlus} className="follow-icon" />
+  </div>
+)}
+
         </div>
 
         {postType === 'text' && (
@@ -191,7 +203,7 @@ const Posts = () => {
 
         {postType === 'media' && (
           <div className="media-gallery">
-            <p className='post-content'>{caption}</p>
+            <p className="post-content">{caption}</p>
             {renderMedia()}
           </div>
         )}

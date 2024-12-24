@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { signup, login, getUserDetails, editUserDetails } = require('../Controllers/AuthController');
+const { signup, login, getUserDetails, editUserDetails, getUserDetailsOther } = require('../Controllers/AuthController');
 const authenticateUser = require('../Middleware/auth');
 const multer = require('multer');
 const path = require('path');
@@ -22,6 +22,7 @@ router.post('/signup', signup);
 router.post('/login', login);
 router.get('/profile', authenticateUser, getUserDetails);
 router.put('/profile/edit', authenticateUser, upload.single('profileImage'), editUserDetails);
+router.get('/profile/:userId', getUserDetailsOther);
 
 
 

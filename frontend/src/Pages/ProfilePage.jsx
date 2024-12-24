@@ -15,7 +15,7 @@ const ProfilePage = () => {
           <ProfileMiddle/>
         </div>
         <div className="profilepage-rightpage">
-right
+
         </div>
       </div>
     </div>
