@@ -6,8 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faEnvelope, faPhone, faEdit } from '@fortawesome/free-solid-svg-icons';
 
 import './Profile.css';
-import { useAuth } from '../../../Context/AuthContext'; // Adjust the path as needed
-
+import { useAuth } from '../../../Context/AuthContext'; 
 const Profile = () => {
   const { authState } = useAuth();
   const [modalIsOpen, setModalIsOpen] = useState(false);

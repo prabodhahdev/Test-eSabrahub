@@ -167,7 +167,7 @@ const Posts = () => {
       <div className="post">
         <div className="post-header">
         <img
-          src={ getProfileImageUrl() || '/uploads/profiles/profile.jpg'}
+          src={`http://localhost:5000${userProfile}`} 
           alt="Profile"
           className="user-profile"
         />          

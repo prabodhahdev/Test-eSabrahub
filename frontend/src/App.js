@@ -50,6 +50,7 @@ const AppContent = () => {
           <Route path="/places" element={<AttractivePlacesPage />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/profile/:userId" element={<ProfilePage />} />
           <Route path="/details/:id" element={<ServiceDetails />} />
           <Route element={<ProtectedRoute />}>
             <Route path="/chat/:userId" element={<ChatPage />} />

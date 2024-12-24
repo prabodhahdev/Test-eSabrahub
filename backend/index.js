@@ -8,6 +8,7 @@ const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const userRoutes = require('./Routes/Auth');
+const UserRoutesAll = require('./Routes/UserRoutesAll')
 const contactRoutes = require('./Routes/ContactRoutes');
 const postRoutes = require('./Routes/PostRoutes');
 const serviceRoute = require('./Routes/ServiceRoutes');
@@ -63,6 +64,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Apply routes
 app.use('/api/users', userRoutes);
+app.use('/api/users', UserRoutesAll);
 app.use('/api/posts', postRoutes);
 app.use('/api/service', serviceRoute);
 app.use('/api/extraphotos',serviceExtraPhotosRoute ); 
