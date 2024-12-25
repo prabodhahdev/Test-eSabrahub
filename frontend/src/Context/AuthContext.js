@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
       const token = localStorage.getItem('token');
       if (token) {
         try {
-          const response = await axios.get('http://localhost:5000/api/auth/verify', {
+          const response = await axios.get('http://localhost:5000/api/users/verify', {
             headers: { Authorization: `Bearer ${token}` },
           });
           console.log("Token validation response:", response.data); // Log the response for debugging
@@ -50,6 +50,7 @@ export const AuthProvider = ({ children }) => {
       const response = await axios.post('http://localhost:5000/api/users/login', { email, password });
       setAuthState({ user: response.data.user, token: response.data.token });
       localStorage.setItem('token', response.data.token);
+      
     } catch (error) {
       const errorMessage = error.response?.data?.message || "Login failed. Please try again.";
       throw new Error(errorMessage);

@@ -17,6 +17,11 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
+router.get('/verify', authenticateUser, (req, res) => {
+  // If this endpoint is hit, the token has already been validated
+  res.json({ user: req.user });
+});
+
 // Define routes
 router.post('/signup', signup);
 router.post('/login', login);

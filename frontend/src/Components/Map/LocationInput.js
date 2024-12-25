@@ -96,6 +96,7 @@ const LocationInput = ({ initialLocation, onLocationSelect }) => {
       setLoading(false); // Reset loading when the component unmounts
       setError(''); // Clear error messages when the component unmounts
     };
+    
   }, [initialLocation]); // Run effect when initialLocation changes
 
   return (

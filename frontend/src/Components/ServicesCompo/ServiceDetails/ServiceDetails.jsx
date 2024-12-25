@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {   faArrowAltCircleDown, faArrowDown, faArrowDownUpLock, faDroplet, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
-import LocationInput from '../../Map/LocationInput'; // Make sure this path is correct
+import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+import LocationInput from '../../Map/LocationInput'; 
 import './ServiceDetails.css';
 
 const ServiceDetails = () => {
@@ -12,9 +12,18 @@ const ServiceDetails = () => {
   const [extraPhotos, setExtraPhotos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [hasRefreshed, setHasRefreshed] = useState(false); 
 
   useEffect(() => {
+    // Check if the page has already been reloaded for the current ID
+    const reloadKey = `reloaded-${id}`;
+    const hasReloaded = sessionStorage.getItem(reloadKey);
+
+    if (!hasReloaded) {
+      sessionStorage.setItem(reloadKey, 'true');
+      window.location.reload(); // Reload the page once
+      return;
+    }
+
     const fetchServiceById = async (id) => {
       try {
         const response = await axios.get(`http://localhost:5000/api/service/${id}`);
@@ -49,6 +58,7 @@ const ServiceDetails = () => {
       }
     };
 
+    setLoading(true);
     getService();
   }, [id]);
 
@@ -59,51 +69,49 @@ const ServiceDetails = () => {
     <div className="service-details">
       {service && (
         <>
-          <div className='service-list-top'>
-            <div className='service-details-left-side'>
-            <h1>{service.name}</h1>
+          <div className="service-list-top">
+            <div className="service-details-left-side">
+              <h1>{service.name}</h1>
               <img
                 src={`http://localhost:5000/uploads/mainphotos/${service.mainPhoto}`}
                 alt={service.name}
                 className="service-main-photo"
               />
             </div>
-            <div className='service-details-right-side'>
-              <p className='location-service'><FontAwesomeIcon icon={faMapMarkerAlt} className='google-map-icon' />
-              {service.location}</p>
-              <div className='service-list-display-location'>
-                {/* Pass the service location to the LocationInput component */}
+            <div className="service-details-right-side">
+              <p className="location-service">
+                <FontAwesomeIcon icon={faMapMarkerAlt} className="google-map-icon" />
+                {service.location}
+              </p>
+              <div className="service-list-display-location">
                 <LocationInput
-                  initialLocation={service.location} // Pass the service location here
+                  initialLocation={service.location}
                   onLocationSelect={(address, position) => {
                     console.log('Selected location:', address, position);
                   }}
                 />
               </div>
-              <p className='service-details-description-frontend'> {service.description}</p>
+              <p className="service-details-description-frontend">{service.description}</p>
             </div>
           </div>
-          <h2 className='service-details-heading'>See more...</h2>
+          <h2 className="service-details-heading">See more...</h2>
           {extraPhotos.length > 0 ? (
-              
-
-  <div className="extra-photos-bottom-part-service-details">
-    <div className="extra-photos-grid"> {/* Use the grid class here */}
-      {extraPhotos.map((photo, index) => (
-        <div key={index} className='extra-photos-bottom-part-service-details-secnd'>
-          <img
-            src={`http://localhost:5000/uploads/extrapics/${photo}`}
-            alt={`Extra ${index}`}
-            style={{ width: '100%', height: 'auto', margin: '5px' }}
-          />
-        </div>
-      ))}
-    </div>
-  </div>
-) : (
-  <p>No extra photos available.</p>
-)}
-
+            <div className="extra-photos-bottom-part-service-details">
+              <div className="extra-photos-grid">
+                {extraPhotos.map((photo, index) => (
+                  <div key={index} className="extra-photos-bottom-part-service-details-secnd">
+                    <img
+                      src={`http://localhost:5000/uploads/extrapics/${photo}`}
+                      alt={`Extra ${index}`}
+                      style={{ width: '100%', height: 'auto', margin: '5px' }}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <p>No extra photos available.</p>
+          )}
         </>
       )}
     </div>
