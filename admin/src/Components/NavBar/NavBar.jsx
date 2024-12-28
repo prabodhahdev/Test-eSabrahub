@@ -23,7 +23,9 @@ const NavBar = () => {
         <Link to="/transport" >Transport</Link>
         <Link to="/medical-centers" >Medical Centers</Link>
         <Link to="/attractive-places" >Attractive Places</Link>
-        <Link to="/" >Create Post</Link>
+        <Link to="/main" >Create Post</Link>
+        <Link to="/"  className='logout-btn'>Logout</Link>
+
       </div>
     </>
   );

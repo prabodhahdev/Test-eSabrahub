@@ -7,6 +7,7 @@ const ChatList = ({ onSelectConversation, newMessage }) => {
   const { authState } = useAuth();
   const [conversations, setConversations] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedChatId, setSelectedChatId] = useState(null); // State for selected chat
 
   useEffect(() => {
     const fetchChatList = async () => {
@@ -33,11 +34,12 @@ const ChatList = ({ onSelectConversation, newMessage }) => {
   useEffect(() => {
     if (newMessage) {
       const updateConversationList = (updatedConversation) => {
-        setConversations(prevConversations =>
-          prevConversations.map(conversation =>
-            conversation._id === updatedConversation._id ? updatedConversation : conversation
-          )
-        );
+        setConversations((prevConversations) => {
+          const filteredConversations = prevConversations.filter(
+            (conversation) => conversation._id !== updatedConversation._id
+          );
+          return [updatedConversation, ...filteredConversations];
+        });
       };
 
       updateConversationList(newMessage.conversation);
@@ -74,8 +76,11 @@ const ChatList = ({ onSelectConversation, newMessage }) => {
       {conversations.map(conversation => (
         <div
           key={conversation._id}
-          className="chatlist-user"
-          onClick={() => onSelectConversation(conversation)}
+          className={`chatlist-user ${selectedChatId === conversation._id ? 'selected-chat' : ''}`} // Add conditional class
+          onClick={() => {
+            setSelectedChatId(conversation._id); // Set selected chat ID
+            onSelectConversation(conversation); // Call parent function
+          }}
         >
           <div className="chatlist-middle">
             {conversation.participants

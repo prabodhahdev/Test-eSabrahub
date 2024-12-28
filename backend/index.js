@@ -104,3 +104,6 @@ const PORT = process.env.PORT ;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+
+//GOOGLE_MAPS_API_KEY=AIzaSyBr9_gYL-NcFmcsmPObgzMBroDH5d3M2Xw (previous one)

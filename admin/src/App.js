@@ -1,9 +1,10 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom'; // Import useLocation
 import NavBar from './Components/NavBar/NavBar'; // Adjust the path as necessary
-import { ToastContainer, toast } from 'react-toastify'; // Import toast here
+import { ToastContainer } from 'react-toastify'; // Import toast here
 import 'react-toastify/dist/ReactToastify.css';
 
+// Import Pages
 import AttractivePlaces from './pages/AttractivePlaces';
 import Accomodation from './pages/Accomodation';
 import Foods from './pages/Foods';
@@ -11,35 +12,40 @@ import Medicine from './pages/Medicine';
 import Transport from './pages/Transport';
 import Main from './pages/Main';
 import EditService from './Components/EditService/EditService';
+import Login from './pages/Login'; // Import login page
 
 function App() {
+  const location = useLocation(); // Get the current route
+
   return (
-    <Router>
-      <div className='app-container'>
-        <NavBar />
-        <div className='app-admin'>
-          <Routes>
-            <Route path="/accommodation" element={<Accomodation />} />
-            <Route path="/food-shop" element={<Foods />} />
-            <Route path="/transport" element={<Transport />} />
-            <Route path="/medical-centers" element={<Medicine />} />
-            <Route path="/attractive-places" element={<AttractivePlaces />} />
-            <Route path="/edit/:id" element={<EditService />} /> {/* Edit page route */}
-            <Route path="/" element={<Main />} />
-          </Routes>
-        </div>
+    <div className='app-container'>
+      {/* Conditionally render NavBar based on the current route */}
+      {location.pathname !== '/' && <NavBar />}  {/* Hide NavBar on '/login' */}
+
+      <div className='app-admin'>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/accommodation" element={<Accomodation />} />
+          <Route path="/food-shop" element={<Foods />} />
+          <Route path="/transport" element={<Transport />} />
+          <Route path="/medical-centers" element={<Medicine />} />
+          <Route path="/attractive-places" element={<AttractivePlaces />} />
+          <Route path="/edit/:id" element={<EditService />} /> {/* Edit page route */}
+          <Route path="/main" element={<Main />} />
+        </Routes>
       </div>
+
       <ToastContainer 
-        className="toast-container" // Set your custom class name
-        position="top-right" // Set the position to top right
-        autoClose={5000} // Auto close after 5 seconds
-        hideProgressBar={false} // Show the progress bar
+        className="toast-container" 
+        position="top-right" 
+        autoClose={5000} 
+        hideProgressBar={false} 
         closeOnClick
         pauseOnHover
         draggable
         pauseOnFocusLoss
       />
-    </Router>
+    </div>
   );
 }
 

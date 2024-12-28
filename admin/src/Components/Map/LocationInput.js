@@ -33,7 +33,7 @@ const LocationInput = ({ onLocationSelect }) => {
     };
 
     return (
-        <LoadScript googleMapsApiKey="AIzaSyBr9_gYL-NcFmcsmPObgzMBroDH5d3M2Xw" libraries={["places"]}>
+        <LoadScript googleMapsApiKey="AIzaSyB4RaszB_X_T0AMhA1dDFVP0SZ-pm-U7eo" libraries={["places"]}>
             <div style={{ position: 'relative', width: '100%', height: '400px' }}>
                 <GoogleMap
                     mapContainerStyle={{ height: '100%', width: '100%' }}

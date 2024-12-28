@@ -100,7 +100,7 @@ const LocationInput = ({ initialLocation, onLocationSelect }) => {
   }, [initialLocation]); // Run effect when initialLocation changes
 
   return (
-    <LoadScript googleMapsApiKey="AIzaSyBr9_gYL-NcFmcsmPObgzMBroDH5d3M2Xw" libraries={["places"]}>
+    <LoadScript googleMapsApiKey="AIzaSyB4RaszB_X_T0AMhA1dDFVP0SZ-pm-U7eo" libraries={["places"]}>
       <div className="map-container" style={{ position: 'relative', height: '400px', width: '100%' }}>
         {loading && <p>Loading map...</p>} {/* Loading message */}
         {error && <p style={{ color: 'red' }}>{error}</p>} {/* Error message */}
